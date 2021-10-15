@@ -8,7 +8,6 @@ import { FavoritePageComponent } from './modules/favorites/pages/favorite-page/f
 @NgModule({
   declarations: [
     AppComponent,
-    FavoritePageComponent
   ],
   imports: [
     BrowserModule,
