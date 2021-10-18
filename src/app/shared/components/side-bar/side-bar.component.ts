@@ -67,7 +67,7 @@ export class SideBarComponent implements OnInit {
   }
 
   goTo($event: any): void{
-    this.router.navigate(['/', ''])
+    this.router.navigate(['/', 'favorites'])
   }
 
 }

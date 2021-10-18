@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TrackModel } from 'src/app/core/models/tracks.models';
-import * as dataRaw from '../../../../data/track.json'
+import { TrackService } from '../../services/track.service';
 
 @Component({
   selector: 'app-tracks-page',
@@ -8,14 +8,24 @@ import * as dataRaw from '../../../../data/track.json'
   styleUrls: ['./tracks-page.component.css']
 })
 export class TracksPageComponent implements OnInit {
-  mockTracksList: Array<TrackModel> = [
-    
-  ]
-  constructor() { }
+  trackTrending: Array<TrackModel> = []
+  trackRandom: Array<TrackModel> = []
+  constructor(private trackService: TrackService) { }
 
   ngOnInit(): void {
-    const {data}: any = (dataRaw as any).default
-    this.mockTracksList = data;
+  this.loadDataRandom();
+  this.loadDataAll();
+  }
+
+  async loadDataAll(): Promise<any> {
+    this.trackTrending = await this.trackService.getAllTracks$().toPromise()
+  }
+
+  loadDataRandom(): void {
+    this.trackService.getAllTracks$()
+      .subscribe((response: TrackModel[]) => {
+        this.trackRandom = response
+      })
   }
 
 }
