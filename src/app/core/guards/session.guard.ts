@@ -13,7 +13,7 @@ export class SessionGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+    return this.checkCookieSession();
   }
 
   checkCookieSession(): boolean {
@@ -22,6 +22,7 @@ export class SessionGuard implements CanActivate {
       const token: boolean = this.cookieService.check('token')
       if (!token) {
         this.router.navigate(['/', 'auth'])
+        console.log('err')
       }
       return token
 
